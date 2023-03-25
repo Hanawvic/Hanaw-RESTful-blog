@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image:  url({{ url_for('static', filename='img/403.jpg')}})">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+
+        <div class="post-preview">
+            <h2 class="post-title">
+             You do not have permission  to do that (403)
+            </h2>
+            <span class="subheading">  Please check your account and try again! ! Only admin can access to this route!</span>
+</div>
+        </div>
+      </div>
+    </div>
+
+<br>
+<hr>
+
+{% endblock %}
