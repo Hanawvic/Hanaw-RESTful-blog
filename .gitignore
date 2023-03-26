@@ -1,4 +1,3 @@
-# created by virtualenv automatically
 # Created by https://www.toptal.com/developers/gitignore/api/flask
 # Edit at https://www.toptal.com/developers/gitignore?templates=flask
 
@@ -7,9 +6,6 @@ instance/*
 !instance/.gitignore
 .webassets-cache
 .env
-venv/
-blog.db
-migrations
 
 ### Flask.Python Stack ###
 # Byte-compiled / optimized / DLL files
@@ -28,7 +24,7 @@ dist/
 downloads/
 eggs/
 .eggs/
-venv/Lib/
+lib/
 lib64/
 parts/
 sdist/
@@ -135,6 +131,7 @@ celerybeat.pid
 # Environments
 .venv
 env/
+venv/
 ENV/
 env.bak/
 venv.bak/
@@ -171,3 +168,5 @@ cython_debug/
 #.idea/
 
 # End of https://www.toptal.com/developers/gitignore/api/flask
+
+migrations/
