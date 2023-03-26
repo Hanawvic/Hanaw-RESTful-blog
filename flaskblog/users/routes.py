@@ -5,7 +5,6 @@ from flask_mail import Message
 from itsdangerous import SignatureExpired, BadSignature, URLSafeTimedSerializer
 from sqlalchemy.exc import IntegrityError
 from werkzeug.security import check_password_hash, generate_password_hash
-
 from flaskblog import db, mail, login_manager
 from flaskblog.models import User, current_year, BlogPost, Notification
 from flaskblog.users.forms import LoginForm, RegisterForm, PasswordResetRequestForm, PasswordResetForm
