@@ -58,7 +58,7 @@ def register():
             token = serializer.dumps(new_user.email, salt='email-confirm')
 
             # Send email confirmation to user
-            confirmation_url = url_for('confirm_email', token=token, _external=True)
+            confirmation_url = url_for('users.confirm_email', token=token, _external=True)
             # If you have set MAIL_DEFAULT_SENDER you don’t need to set the message sender explicity, as it will use
             # this configuration value by default:"
             msg = Message("Confirm Your Email Address", recipients=[new_user.email])
