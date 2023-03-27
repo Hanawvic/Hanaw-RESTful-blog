@@ -3,7 +3,7 @@ from flask_mail import Message
 
 from flaskblog import mail
 from flaskblog.models import BlogPost, current_year
-
+from flaskblog.config import Config
 main = Blueprint("main", __name__)
 
 
@@ -32,7 +32,7 @@ def contact():
         user_message = data["message"]
 
         # Sending mail notification
-        msg = Message("Contact message", recipients=[user_email])
+        msg = Message("Contact message", recipients=[Config.MAIL_USERNAME])
         msg.body = f"Subject:New Message!\n\nName: {user_name}\nEmail: {user_email}\nPhone: {user_phone}\nMessage: {user_message}"
         mail.send(msg)
 
