@@ -4,6 +4,8 @@ from flask_login import login_required, current_user
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import joinedload
 from flaskblog import db
+from flask_mail import Message
+from flaskblog import mail
 from flaskblog.models import BlogPost, Comment, current_year, Notification
 from flaskblog.posts.forms import CreatePostForm, CommentForm
 from datetime import date
@@ -37,6 +39,12 @@ def show_post(post_id):
         notification = Notification(message=f'{current_user} commented the post {requested_post.title}.')
         db.session.add(notification)
         db.session.commit()
+        # Sending mail notification
+        msg = Message("Blog Notification", recipients=[requested_post.author.email])
+        # Only send notification if sm1 else has commented your post
+        if current_user.name != requested_post.author.name:
+            msg.body = f"Subject:New notification!\n\n{current_user} commented your post {requested_post.title}."
+            mail.send(msg)
         return redirect(url_for("posts.show_post", post_id=post_id))
     # paginate comments
     page = request.args.get('page', 1, type=int)
@@ -71,9 +79,14 @@ def create_new_post():
             db.session.commit()
             flash(message=f"A new blogpost: '{new_post.title}' added successfully!", category="success")
             # Create a new notification
-            notification = Notification(message=f'{current_user} posted new post {new_post.title}.')
+            notification = Notification(message=f'{current_user} posted new post called {new_post.title}.')
             db.session.add(notification)
             db.session.commit()
+            # Sending mail notification
+            msg = Message("Blog Notification", recipients=[current_user.email])
+            msg.body = f"Subject:New notification!\n\n Welcome to Hanaw's Blog! " \
+                       f"You posted a new post called {new_post.title}."
+            mail.send(msg)
             return redirect(url_for("main.get_all_posts"))
 
         except IntegrityError:
@@ -122,13 +135,6 @@ def delete_post(post_id):
     post_to_delete = BlogPost.query.get_or_404(post_id)
     db.session.delete(post_to_delete)
     flash(message=f"{post_to_delete.title} has been deleted successfully!", category="warning")
-
-    # Query the remaining posts and update their ids
-    all_posts = BlogPost.query.order_by(BlogPost.id).all()
-    for i, post in enumerate(all_posts, start=1):
-        post.id = i
-        db.session.add(post)
-    db.session.commit()
 
     # Create a new notification
     notification = Notification(message=f'{current_user} deleted the post: {post_to_delete.title}.')

@@ -1,6 +1,5 @@
 from flask import Blueprint, render_template, request
 from flask_mail import Message
-
 from flaskblog import mail
 from flaskblog.models import BlogPost, current_year
 from flaskblog.config import Config
