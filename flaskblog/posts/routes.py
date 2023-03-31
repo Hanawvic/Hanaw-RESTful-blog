@@ -13,6 +13,11 @@ from datetime import date
 posts = Blueprint("posts", __name__)
 
 
+@posts.context_processor
+def inject_current_year():
+    return {"year": current_year}
+
+
 # Create admin-only decorator
 def admin_only(f):
     @wraps(f)
@@ -51,7 +56,7 @@ def show_post(post_id):
     post_comments = Comment.query.filter_by(parent_post=requested_post).order_by(Comment.timestamp.desc()) \
         .paginate(page=page, per_page=3)
 
-    return render_template("post.html", post=requested_post, form=form, post_comments=post_comments, year=current_year)
+    return render_template("post.html", post=requested_post, form=form, post_comments=post_comments)
 
 
 @posts.route("/new-post", methods=["GET", "POST"])
@@ -94,7 +99,7 @@ def create_new_post():
             flash(message=f"The post '{new_post.title}' already exists!", category="danger")
             return redirect(url_for("main.get_all_posts"))
 
-    return render_template("make-post.html", form=form, year=current_year)
+    return render_template("make-post.html", form=form)
 
 
 @posts.route("/edit-post/<int:post_id>", methods=["GET", "POST"])
@@ -125,7 +130,7 @@ def edit_post(post_id):
         db.session.commit()
         return redirect(url_for("posts.show_post", post_id=requested_post.id))
 
-    return render_template("make-post.html", is_edit=True, form=edit_form, year=current_year)
+    return render_template("make-post.html", is_edit=True, form=edit_form)
 
 
 @posts.route("/delete/<int:post_id>", methods=["GET", "POST"])

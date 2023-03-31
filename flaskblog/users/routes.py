@@ -11,6 +11,12 @@ from flaskblog.users.forms import LoginForm, RegisterForm, PasswordResetRequestF
 
 users = Blueprint("users", __name__)
 
+
+@users.context_processor
+def inject_current_year():
+    return {"year": current_year}
+
+
 # Serializer for token generation
 with current_app.app_context():
     serializer = URLSafeTimedSerializer(current_app.config['SECRET_KEY'])
@@ -77,7 +83,7 @@ def register():
             flash(message=f"{email} is already registered. Please login instead.", category="danger")
             return redirect(url_for('users.login'))
 
-    return render_template('register.html', form=form, year=current_year)
+    return render_template('register.html', form=form)
 
 
 @users.route('/confirm_email/<token>')
@@ -137,7 +143,7 @@ def login():
         else:
             flash(message=f"Please confirm your email to log in!", category="danger")
 
-    return render_template("login.html", form=form, year=current_year)
+    return render_template("login.html", form=form)
 
 
 @users.route('/logout')
@@ -159,7 +165,7 @@ def user_posts(username):
     posts = BlogPost.query.filter_by(author=user) \
         .order_by(BlogPost.date.desc()) \
         .paginate(page=page, per_page=2)
-    return render_template('user-posts.html', posts=posts, user=user, num_posts=user.num_posts(), year=current_year)
+    return render_template('user-posts.html', posts=posts, user=user, num_posts=user.num_posts())
 
 
 # Route for password reset request
