@@ -47,8 +47,11 @@ def show_post(post_id):
         # Sending mail notification
         msg = Message("Blog Notification", recipients=[requested_post.author.email])
         # Only send notification if sm1 else has commented your post
+
+        post_url = url_for('posts.show_post', post_id=requested_post.id, _external=True)
         if current_user.name != requested_post.author.name:
-            msg.body = f"Subject:New notification!\n\n{current_user} commented your post {requested_post.title}."
+            msg.body = f"Subject:New notification!\n\n{current_user} commented your post {requested_post.title}.Here" \
+                       f"'s the link to your post: {post_url}"
             mail.send(msg)
         return redirect(url_for("posts.show_post", post_id=post_id))
     # paginate comments
@@ -88,10 +91,12 @@ def create_new_post():
             db.session.add(notification)
             db.session.commit()
             # Sending mail notification
+            post_url = url_for('posts.show_post', post_id=new_post.id, _external=True)
             msg = Message("Blog Notification", recipients=[current_user.email])
             msg.body = f"Subject:New notification!\n\n Welcome to Hanaw's Blog! " \
-                       f"You posted a new post called {new_post.title}."
+                       f"You posted a new post called {new_post.title}. Here's the link to your post: {post_url}"
             mail.send(msg)
+
             return redirect(url_for("main.get_all_posts"))
 
         except IntegrityError:
