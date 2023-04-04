@@ -48,7 +48,7 @@ def show_post(post_id):
         msg = Message("Blog Notification", recipients=[requested_post.author.email])
         # Only send notification if sm1 else has commented your post
 
-        post_url = url_for('posts.show_post', post_id=requested_post.id, _external=True)
+        post_url = url_for('posts.show_post', post_id=post_id, _external=True)
         if current_user.name != requested_post.author.name:
             msg.body = f"Subject:New notification!\n\n{current_user} commented your post {requested_post.title}.Here" \
                        f"'s the link to your post: {post_url}"
