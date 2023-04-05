@@ -1,4 +1,5 @@
 from flask import Flask
+from flask.cli import load_dotenv
 from flask_admin import Admin
 from flask_admin.menu import MenuLink
 from flask_bootstrap import Bootstrap5
@@ -12,7 +13,7 @@ from flaskblog.config import Config
 
 ckeditor = CKEditor()
 bootstrap = Bootstrap5()
-
+load_dotenv()
 # create the extension
 db = SQLAlchemy()
 admin = Admin(name="MY BLOG", template_mode='bootstrap3')
