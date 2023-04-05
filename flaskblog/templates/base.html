@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-{% block head %}
+
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
@@ -11,7 +11,7 @@
 
 
 
-{% block styles %}
+
 
   <!-- Custom fonts for this template -->
   <link rel="shortcut icon" href="{{ url_for('static', filename='img/h.png') }}">
@@ -25,9 +25,9 @@
   <link href="{{ url_for('static', filename='css/clean-blog.min.css')}}" rel="stylesheet">
 <!-- Add styles to the input element -->
 
-{% endblock %}
+
   <title>Clean Blog - Hanaw's Blog</title>
-  {% endblock %}
+
 </head>
 
 <body>
@@ -122,14 +122,16 @@
 
 
 
-        {% block scripts %}
+
    <!-- Bootstrap core JavaScript -->
   <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js')}}"></script>
     <!-- Custom scripts for this template -->
   <script src="{{ url_for('static', filename='js/clean-blog.min.js')}}"></script>
             <!-- Optional JavaScript -->
             {{ bootstrap.load_js() }}
-        {% endblock %}
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+
 
 </body>
 </html>

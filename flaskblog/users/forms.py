@@ -1,4 +1,4 @@
-from flask_wtf import FlaskForm
+from flask_wtf import FlaskForm, RecaptchaField
 from wtforms import StringField, SubmitField, PasswordField
 from wtforms.validators import DataRequired, Email, Length
 
@@ -10,6 +10,7 @@ class RegisterForm(FlaskForm):
                              validators=[DataRequired(),
                                          Length(min=8, message="Password should be at least 8 characters")])
     name = StringField("Name", validators=[DataRequired()])
+    recaptcha = RecaptchaField()
     submit = SubmitField("Sign me up!")
 
 
