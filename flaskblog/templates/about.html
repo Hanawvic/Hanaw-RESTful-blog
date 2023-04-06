@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url({{ url_for('static', filename='img/about-bg.jpg')}})">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="page-heading">
+            <h1>About Me</h1>
+            <span class="subheading">This is what I do.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <p>
+     <p>
+          Welcome to my blog! My name is <b>Heni</b> (you can call me <b><em>Hanaw</em></b>), and I'm so glad you're here. I created this website as a platform to share my thoughts, experiences, and expertise on topics related to my passion.
+        </p>
+        <p>
+          I'm an energy engineer with 10 years of experience and I love programming, especially building websites. Throughout my career,
+          I've developed a passion for problem-solving by designing and auditing installations in many industries.
+          By sharing my knowledge and insights with others, I believe I can help them navigate the challenges and opportunities in this field.
+        </p>
+        <p>
+          But this blog isn't just about my professional experiences. In my free time, I love building web applications, learning something new about astrophysics, watching my favorite team FC BARCELONA, and playing some DOTA.
+          I believe that these personal pursuits help inform and enrich my work, and I hope they can provide inspiration to my readers as well.
+        </p>
+        <p>
+          Whether you're here to learn something new, gain a fresh perspective, or simply connect with a like-minded individual,
+          I hope you'll find something of value on this blog. Thank you for stopping by!
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+{% endblock %}
